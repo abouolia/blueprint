@@ -44,6 +44,13 @@ export interface ISuggestProps<T> extends IListItemsProps<T> {
      */
     closeOnSelect?: boolean;
 
+    /**
+     * Whether the input field should blur after the popover list closing.
+     *
+     * @default true
+     */
+    blurOnSelectClose?: boolean
+
     /** Whether the input field should be disabled. */
     disabled?: boolean;
 
@@ -110,6 +117,7 @@ export class Suggest<T> extends AbstractPureComponent2<ISuggestProps<T>, ISugges
 
     public static defaultProps: Partial<ISuggestProps<any>> = {
         closeOnSelect: true,
+        blurOnSelectClose: true,
         fill: false,
         openOnKeyDown: false,
         resetOnClose: false,
@@ -249,7 +257,9 @@ export class Suggest<T> extends AbstractPureComponent2<ISuggestProps<T>, ISugges
             this.selectText();
             nextOpenState = true;
         } else {
-            getRef(this.inputElement)?.blur();
+            if (blurOnSelectClose) {
+              getRef(this.inputElement)?.blur();  
+            }
             nextOpenState = false;
         }
 
