@@ -104,3 +104,16 @@ $pt-dark-intent-text-colors: (
 @mixin new-render-layer() {
   transform: translateZ(0);
 }
+
+
+@mixin rtl() {
+  [dir="rtl"] & {
+    @content
+  }
+}
+
+@mixin ltr() {
+  [dir="ltr"] & {
+    @content
+  }
+}

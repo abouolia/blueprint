@@ -144,6 +144,9 @@ export class Select<T> extends AbstractPureComponent2<SelectProps<T>, ISelectSta
         );
 
         const { handleKeyDown, handleKeyUp } = listProps;
+        const { isLTR } = this.context;
+        const position = isLTR ? Position.BOTTOM_LEFT : Position.BOTTOM_RIGHT;
+
         return (
             /* eslint-disable-next-line deprecation/deprecation */
             <Popover
@@ -151,7 +154,7 @@ export class Select<T> extends AbstractPureComponent2<SelectProps<T>, ISelectSta
                 enforceFocus={false}
                 isOpen={this.state.isOpen}
                 disabled={disabled}
-                position={Position.BOTTOM_LEFT}
+                position={position}
                 {...popoverProps}
                 className={classNames(listProps.className, popoverProps.className)}
                 onInteraction={this.handlePopoverInteraction}

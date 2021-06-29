@@ -158,6 +158,9 @@ export class MenuItem extends AbstractPureComponent2<MenuItemProps & React.Ancho
             className,
         );
 
+        const { isLTR } = this.context;
+        const caretIcon = isLTR ? "caret-left" : "caret-right";
+
         const target = React.createElement(
             tagName,
             {
@@ -170,7 +173,7 @@ export class MenuItem extends AbstractPureComponent2<MenuItemProps & React.Ancho
                 {text}
             </Text>,
             this.maybeRenderLabel(labelElement),
-            hasSubmenu ? <Icon icon="caret-right" /> : undefined,
+            hasSubmenu ? <Icon icon={caretIcon} /> : undefined,
         );
 
         const liClasses = classNames({ [Classes.MENU_SUBMENU]: hasSubmenu });
@@ -195,8 +198,10 @@ export class MenuItem extends AbstractPureComponent2<MenuItemProps & React.Ancho
             return target;
         }
         const { disabled, popoverProps } = this.props;
+        const { isLTR } = this.context;
+        const position = isLTR ? Position.LEFT_TOP : Position.RIGHT_TOP;
+
         return (
-            /* eslint-disable-next-line deprecation/deprecation */
             <Popover
                 autoFocus={false}
                 captureDismiss={false}
@@ -205,7 +210,7 @@ export class MenuItem extends AbstractPureComponent2<MenuItemProps & React.Ancho
                 hoverCloseDelay={0}
                 interactionKind={PopoverInteractionKind.HOVER}
                 modifiers={SUBMENU_POPOVER_MODIFIERS}
-                position={Position.RIGHT_TOP}
+                position={position}
                 usePortal={false}
                 {...popoverProps}
                 content={<Menu>{children}</Menu>}

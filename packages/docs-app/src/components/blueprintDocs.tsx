@@ -18,7 +18,7 @@ import { IHeadingNode, IPageData, isPageNode, ITsDocBase } from "@documentalist/
 import classNames from "classnames";
 import * as React from "react";
 
-import { AnchorButton, Classes, HotkeysProvider, Tag } from "@blueprintjs/core";
+import { AnchorButton, Classes, HotkeysProvider, ConfigProvider, Tag } from "@blueprintjs/core";
 import { IDocsCompleteData } from "@blueprintjs/docs-data";
 import { Banner, Documentation, IDocumentationProps, NavMenuItemProps, NavMenuItem } from "@blueprintjs/docs-theme";
 
@@ -87,20 +87,22 @@ export class BlueprintDocs extends React.Component<IBlueprintDocsProps, { themeN
             />
         );
         return (
-            <HotkeysProvider>
-                <Documentation
-                    {...this.props}
-                    className={this.state.themeName}
-                    banner={banner}
-                    footer={footer}
-                    header={header}
-                    navigatorExclude={isNavSection}
-                    onComponentUpdate={this.handleComponentUpdate}
-                    renderNavMenuItem={this.renderNavMenuItem}
-                    renderPageActions={this.renderPageActions}
-                    renderViewSourceLinkText={this.renderViewSourceLinkText}
-                />
-            </HotkeysProvider>
+            <ConfigProvider direction="ltr">
+                <HotkeysProvider>
+                    <Documentation
+                        {...this.props}
+                        className={this.state.themeName}
+                        banner={banner}
+                        footer={footer}
+                        header={header}
+                        navigatorExclude={isNavSection}
+                        onComponentUpdate={this.handleComponentUpdate}
+                        renderNavMenuItem={this.renderNavMenuItem}
+                        renderPageActions={this.renderPageActions}
+                        renderViewSourceLinkText={this.renderViewSourceLinkText}
+                    />
+                </HotkeysProvider>
+            </ConfigProvider>
         );
     }
 

@@ -17,6 +17,7 @@
 import classNames from "classnames";
 import * as React from "react";
 
+import { AbstractComponent2 } from "../../common";
 import * as Classes from "../../common/classes";
 import { DISPLAYNAME_PREFIX, Props, MaybeElement } from "../../common/props";
 import { Collapse } from "../collapse/collapse";
@@ -102,7 +103,7 @@ export interface ITreeNodeProps<T = {}> extends TreeNodeInfo<T> {
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-export class TreeNode<T = {}> extends React.Component<ITreeNodeProps<T>> {
+export class TreeNode<T = {}> extends AbstractComponent2<ITreeNodeProps<T>> {
     public static displayName = `${DISPLAYNAME_PREFIX}.TreeNode`;
 
     public static ofType<U>() {
@@ -152,13 +153,17 @@ export class TreeNode<T = {}> extends React.Component<ITreeNodeProps<T>> {
 
     private maybeRenderCaret() {
         const { children, isExpanded, disabled, hasCaret = React.Children.count(children) > 0 } = this.props;
+        const { isLTR } = this.context;
+
         if (hasCaret) {
             const caretClasses = classNames(
                 Classes.TREE_NODE_CARET,
                 isExpanded ? Classes.TREE_NODE_CARET_OPEN : Classes.TREE_NODE_CARET_CLOSED,
             );
             const onClick = disabled === true ? undefined : this.handleCaretClick;
-            return <Icon className={caretClasses} onClick={onClick} icon={"chevron-right"} />;
+            const icon = isLTR ? "chevron-right" : "chevron-left";
+
+            return <Icon className={caretClasses} onClick={onClick} icon={icon} />;
         }
         return <span className={Classes.TREE_NODE_CARET_NONE} />;
     }

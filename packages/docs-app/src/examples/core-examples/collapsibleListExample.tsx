@@ -42,7 +42,7 @@ const COLLAPSE_FROM_RADIOS = [
 
 export class CollapsibleListExample extends React.PureComponent<IExampleProps, ICollapsibleListExampleState> {
     public state: ICollapsibleListExampleState = {
-        collapseFrom: Boundary.START,
+        collapseFrom: Boundary.END,
         visibleItemCount: 3,
     };
 

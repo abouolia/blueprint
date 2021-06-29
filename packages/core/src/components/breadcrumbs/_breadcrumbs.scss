@@ -36,7 +36,13 @@ Styleguide breadcrumbs
     display: flex;
 
     &::after {
-      background: svg-icon("16px/chevron-right.svg", (path: (fill: $pt-icon-color)));
+      @include rtl() {
+        background: svg-icon("16px/chevron-left.svg", (path: (fill: $pt-icon-color)));
+      }
+      @include ltr() {
+       background: svg-icon("16px/chevron-right.svg", (path: (fill: $pt-icon-color))); 
+      }
+
       content: "";
       display: block;
       height: $pt-icon-size-standard;

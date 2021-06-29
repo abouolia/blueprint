@@ -18,6 +18,7 @@ const ForkTsCheckerNotifierWebpackPlugin = require("fork-ts-checker-notifier-web
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require("path");
+const postcssRTLCSS = require("postcss-rtlcss");
 const webpack = require("webpack");
 const WebpackNotifierPlugin = require("webpack-notifier");
 
@@ -89,7 +90,7 @@ const scssLoaders = [
         loader: require.resolve("postcss-loader"),
         options: {
             postcssOptions: {
-                plugins: [require("autoprefixer"), require("cssnano")({ preset: "default" })],
+                plugins: [require("autoprefixer"), require("cssnano")({ preset: "default" }), postcssRTLCSS()],
             },
         },
     },

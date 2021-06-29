@@ -64,6 +64,10 @@ class ContextMenu extends AbstractPureComponent2<IContextMenuProps, IContextMenu
         // when offset changes, to force recomputing position.
         const key = this.state.offset === undefined ? "" : `${this.state.offset.left}x${this.state.offset.top}`;
 
+        // Config context.
+        const { isRTL } = this.context;
+        const position = isRTL ? Position.RIGHT_TOP : Position.LEFT_TOP;
+
         // wrap the popover in a positioned div to make sure it is properly
         // offset on the screen.
         /* eslint-disable deprecation/deprecation */
@@ -80,7 +84,7 @@ class ContextMenu extends AbstractPureComponent2<IContextMenuProps, IContextMenu
                     minimal={true}
                     modifiers={POPPER_MODIFIERS}
                     onInteraction={this.handlePopoverInteraction}
-                    position={Position.RIGHT_TOP}
+                    position={position}
                     popoverClassName={popoverClassName}
                     target={<div />}
                     transitionDuration={TRANSITION_DURATION}

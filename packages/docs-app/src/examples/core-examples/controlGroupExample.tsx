@@ -16,7 +16,7 @@
 
 import * as React from "react";
 
-import { Button, ControlGroup, HTMLSelect, InputGroup, Switch } from "@blueprintjs/core";
+import { Button, ControlGroup, HTMLSelect, InputGroup, Switch, ConfigContext } from "@blueprintjs/core";
 import { Example, handleBooleanChange, IExampleProps } from "@blueprintjs/docs-theme";
 
 const FILTER_OPTIONS = ["Filter", "Name - ascending", "Name - descending", "Price - ascending", "Price - descending"];
@@ -27,6 +27,8 @@ export interface IControlGroupExampleState {
 }
 
 export class ControlGroupExample extends React.PureComponent<IExampleProps, IControlGroupExampleState> {
+    public static contextType = ConfigContext;
+
     public state: IControlGroupExampleState = {
         fill: false,
         vertical: false,
@@ -43,13 +45,14 @@ export class ControlGroupExample extends React.PureComponent<IExampleProps, ICon
                 <Switch checked={this.state.vertical} label="Vertical" onChange={this.toggleVertical} />
             </>
         );
+        const { isLTR } = this.context;
 
         return (
             <Example options={options} {...this.props}>
                 <ControlGroup {...this.state}>
                     <HTMLSelect options={FILTER_OPTIONS} />
                     <InputGroup placeholder="Find filters..." />
-                    <Button icon="arrow-right" />
+                    <Button icon={isLTR ? "arrow-left" : "arrow-right"} />
                 </ControlGroup>
             </Example>
         );

@@ -160,6 +160,8 @@ export class MultiSelect<T> extends AbstractPureComponent2<MultiSelectProps<T>, 
                 handlePaste(values);
             }
         };
+        const { isLTR } = this.context;
+        const position = isLTR ? Position.BOTTOM_LEFT : Position.BOTTOM_RIGHT;
 
         return (
             /* eslint-disable-next-line deprecation/deprecation */
@@ -168,7 +170,7 @@ export class MultiSelect<T> extends AbstractPureComponent2<MultiSelectProps<T>, 
                 canEscapeKeyClose={true}
                 enforceFocus={false}
                 isOpen={this.state.isOpen}
-                position={Position.BOTTOM_LEFT}
+                position={position}
                 {...popoverProps}
                 className={classNames(listProps.className, popoverProps.className)}
                 interactionKind={PopoverInteractionKind.CLICK}

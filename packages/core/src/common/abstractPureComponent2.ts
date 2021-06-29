@@ -16,6 +16,7 @@
 
 import * as React from "react";
 
+import { ConfigContext } from "../context";
 import { isNodeEnv } from "./utils";
 
 /**
@@ -24,6 +25,8 @@ import { isNodeEnv } from "./utils";
  */
 // eslint-disable-next-line @typescript-eslint/ban-types
 export abstract class AbstractPureComponent2<P, S = {}, SS = {}> extends React.PureComponent<P, S, SS> {
+    public static contextType = ConfigContext;
+
     // unsafe lifecycle method
     public componentWillUpdate: never;
 

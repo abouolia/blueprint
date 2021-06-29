@@ -24,6 +24,7 @@ import {
     Props,
     Utils as CoreUtils,
     mergeRefs,
+    useConfigContext,
 } from "@blueprintjs/core";
 
 import * as Classes from "./classes";
@@ -137,6 +138,8 @@ export const ContextMenu2: React.FC<ContextMenu2Props> = React.forwardRef<any, C
     // force disable parent Tooltip2s in certain cases through dispatching actions
     // N.B. any calls to this dispatch function will be no-ops if there is no Tooltip2Provider ancestor of this component
     const [, tooltipCtxDispatch] = React.useContext(Tooltip2Context);
+    // Retrieves config context state.
+    const { isLTR } = useConfigContext();
     // click target offset relative to the viewport (e.clientX/clientY), since the target will be rendered in a Portal
     const [targetOffset, setTargetOffset] = React.useState<Offset | undefined>(undefined);
     // hold a reference to the click mouse event to pass to content/child render functions
@@ -181,6 +184,9 @@ export const ContextMenu2: React.FC<ContextMenu2Props> = React.forwardRef<any, C
     // this avoid doing unnecessary rendering & computation
     const contentProps: ContextMenu2ContentProps = { isOpen, mouseEvent, targetOffset };
     const menu = disabled ? undefined : CoreUtils.isFunction(content) ? content(contentProps) : content;
+    // Popover placement.
+    const placement = isLTR ? "right-start" : "left-start";
+
     const maybePopover =
         menu === undefined ? undefined : (
             <Popover2
@@ -201,7 +207,7 @@ export const ContextMenu2: React.FC<ContextMenu2Props> = React.forwardRef<any, C
                 popoverClassName={classNames(Classes.CONTEXT_MENU2_POPOVER2, popoverProps?.popoverClassName, {
                     [CoreClasses.DARK]: isDarkTheme,
                 })}
-                placement="right-start"
+                placement={placement}
                 positioningStrategy="fixed"
                 rootBoundary="viewport"
                 renderTarget={renderTarget}

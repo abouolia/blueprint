@@ -33,6 +33,7 @@
   } @else {
     bottom: 0;
     height: auto; // override the non-vertical rule above
+    /*! rtl:ignore */
     left: $slider-track-offset;
     top: 0;
     width: $track-size;

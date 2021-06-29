@@ -82,7 +82,7 @@ $tab-indicator-width: 3px !default;
 
   // this is fine.
   /* stylelint-disable-next-line selector-no-universal */
-  > *:not(:last-child) {
+  > *:not(:last-child):not(.#{$ns}-tab-indicator-wrapper) {
     margin-right: $pt-grid-size * 2;
   }
 }
@@ -148,6 +148,7 @@ $tab-indicator-width: 3px !default;
 }
 
 .#{$ns}-tab-indicator-wrapper {
+  /*! rtl:ignore */
   left: 0;
   pointer-events: none;
   position: absolute;

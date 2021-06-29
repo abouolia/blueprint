@@ -18,7 +18,7 @@ import classNames from "classnames";
 import * as React from "react";
 import { NavbarElementProps } from "react-day-picker";
 
-import { Button } from "@blueprintjs/core";
+import { Button, AbstractPureComponent2 } from "@blueprintjs/core";
 
 import * as Classes from "./common/classes";
 import { areSameMonth } from "./common/dateUtils";
@@ -31,9 +31,13 @@ export interface IDatePickerNavbarProps extends NavbarElementProps {
     hideRightNavButton?: boolean;
 }
 
-export class DatePickerNavbar extends React.PureComponent<IDatePickerNavbarProps> {
+export class DatePickerNavbar extends AbstractPureComponent2<IDatePickerNavbarProps> {
     public render() {
         const { classNames: classes, month, maxDate, minDate } = this.props;
+        const { isLTR } = this.context;
+
+        const leftBtnIcon = isLTR ? "chevron-left" : "chevron-right";
+        const rightBtnIcon = isLTR ? "chevron-right" : "chevron-left";
 
         return (
             <div className={classNames(Classes.DATEPICKER_NAVBAR, classes.navBar)}>
@@ -41,7 +45,7 @@ export class DatePickerNavbar extends React.PureComponent<IDatePickerNavbarProps
                     <Button
                         className={classes.navButtonPrev}
                         disabled={areSameMonth(month, minDate)}
-                        icon="chevron-left"
+                        icon={leftBtnIcon}
                         minimal={true}
                         onClick={this.handlePreviousClick}
                     />
@@ -50,7 +54,7 @@ export class DatePickerNavbar extends React.PureComponent<IDatePickerNavbarProps
                     <Button
                         className={classes.navButtonNext}
                         disabled={areSameMonth(month, maxDate)}
-                        icon="chevron-right"
+                        icon={rightBtnIcon}
                         minimal={true}
                         onClick={this.handleNextClick}
                     />

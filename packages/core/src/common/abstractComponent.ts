@@ -16,6 +16,7 @@
 
 import * as React from "react";
 
+import { ConfigContext } from "../context";
 import { isNodeEnv } from "./utils";
 
 /**
@@ -25,6 +26,8 @@ import { isNodeEnv } from "./utils";
  * @deprecated componentWillReceiveProps is deprecated in React 16.9; use AbstractComponent2 instead
  */
 export abstract class AbstractComponent<P, S> extends React.Component<P, S> {
+    public static contextType = ConfigContext;
+
     /** Component displayName should be `public static`. This property exists to prevent incorrect usage. */
     protected displayName: never;
 

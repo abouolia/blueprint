@@ -16,6 +16,7 @@
 
 import * as React from "react";
 
+import { ConfigContext } from "../context";
 import { isNodeEnv } from "./utils";
 
 /**
@@ -26,6 +27,8 @@ import { isNodeEnv } from "./utils";
  */
 // eslint-disable-next-line @typescript-eslint/ban-types
 export abstract class AbstractPureComponent<P, S = {}> extends React.PureComponent<P, S> {
+    public static contextType = ConfigContext;
+
     /** Component displayName should be `public static`. This property exists to prevent incorrect usage. */
     protected displayName: never;
 

@@ -194,6 +194,8 @@ export class Suggest<T> extends AbstractPureComponent2<SuggestProps<T>, ISuggest
             popoverProps.fill = true;
             inputProps.fill = true;
         }
+        const { isLTR } = this.context;
+        const position = isLTR ? Position.BOTTOM_LEFT : Position.BOTTOM_RIGHT;
 
         return (
             /* eslint-disable-next-line deprecation/deprecation */
@@ -201,7 +203,7 @@ export class Suggest<T> extends AbstractPureComponent2<SuggestProps<T>, ISuggest
                 autoFocus={false}
                 enforceFocus={false}
                 isOpen={isOpen}
-                position={Position.BOTTOM_LEFT}
+                position={position}
                 {...popoverProps}
                 className={classNames(listProps.className, popoverProps.className)}
                 interactionKind={PopoverInteractionKind.CLICK}
