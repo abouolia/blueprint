@@ -30,6 +30,7 @@ import {
     Position,
     refHandler,
     setRef,
+    getRef,
 } from "@blueprintjs/core";
 
 import { Classes, IListItemsProps } from "../../common";
@@ -45,6 +46,13 @@ export interface ISuggestProps<T> extends IListItemsProps<T> {
      * @default true
      */
     closeOnSelect?: boolean;
+
+    /**
+     * Whether the input field should blur after the popover list closing.
+     *
+     * @default true
+     */
+    blurOnSelectClose?: boolean;
 
     /** Whether the input field should be disabled. */
     disabled?: boolean;
@@ -112,6 +120,7 @@ export class Suggest<T> extends AbstractPureComponent2<SuggestProps<T>, ISuggest
 
     public static defaultProps: Partial<SuggestProps<any>> = {
         closeOnSelect: true,
+        blurOnSelectClose: true,
         fill: false,
         openOnKeyDown: false,
         resetOnClose: false,
@@ -258,7 +267,9 @@ export class Suggest<T> extends AbstractPureComponent2<SuggestProps<T>, ISuggest
             this.selectText();
             nextOpenState = true;
         } else {
-            this.inputElement?.blur();
+            if (this.props.blurOnSelectClose) {
+                getRef(this.inputElement)?.blur();
+            }
             nextOpenState = false;
         }
 
